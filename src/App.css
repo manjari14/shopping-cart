@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #2c3e50;
+}
+.products-section {
+  margin-bottom: 30px;
+}
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.product-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  width: 100px;
+  text-align: center;
+}
+.product-card button {
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.product-card button:hover {
+  background-color: #187bcd;
+}
+.cart-summary {
+  background-color: #f0f2f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+.summary-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.progress-wrapper {
+  margin-top: 10px;
+}
+
+.progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 12px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4acf50;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+.card-items {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+}
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.empty-cart {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
