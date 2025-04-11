@@ -68,12 +68,19 @@ function App() {
       <section className='cart-summary'>
         <h2> Cart Summary</h2>
         <div className='summary-card'>
-          <div className='subtotal'>
-<span>Subtotal</span>
-<strong>${subtotal}</strong>
-          </div>
+  <div className='subtotal-row'>
+    <span>Subtotal:</span>
+    <span><strong>${subtotal}</strong></span>
+  </div>
+  <hr />
+  <div className='gift-promo'>
+    <p>Add ${Math.max(0, THRESHOLD - subtotal)} more to get a FREE Wireless Mouse!</p>
+    <div className='progress-bar'>
+      <div className='progress' style={{ width: `${progress}%` }}></div>
+    </div>
+  </div>
+</div>
 
-        </div>
         <hr/>
         <div className='progress-wrapper'>
           <p> Add ${Math.max(0,THRESHOLD - subtotal)} more to get a FREE Wireless Mouse!</p>
