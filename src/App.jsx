@@ -28,28 +28,28 @@ function App() {
     }
   }, [subtotal]);
 
-  const updateCart = (product, delta) => {
-    setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      if (existing) {
-        const updatedQty = existing.quantity + delta;
-        if (updatedQty <= 0) {
-          return prev.filter((item) => item.id !== product.id);
-        }
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: updatedQty } : item
-        );
-      } else if (delta > 0) {
-        return [...prev, { ...product, quantity: 1 }];
-      } else {
-        return prev; // do nothing if trying to subtract from 0
-      }
-    });
+  const getQuantity = (id) => {
+    const item = cart.find((item) => item.id === id);
+    return item ? item.quantity : 0;
   };
 
-  const getQuantity = (productId) => {
-    const item = cart.find((i) => i.id === productId);
-    return item ? item.quantity : 0;
+  const addToCart = (product) => {
+    setCart((prev) => [...prev, { ...product, quantity: 1 }]);
+  };
+
+  const updateQuantity = (product, delta) => {
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+      if (!existing) return prev;
+
+      const newQty = existing.quantity + delta;
+      if (newQty <= 0) {
+        return prev.filter((item) => item.id !== product.id);
+      }
+      return prev.map((item) =>
+        item.id === product.id ? { ...item, quantity: newQty } : item
+      );
+    });
   };
 
   return (
@@ -59,17 +59,26 @@ function App() {
       <section className="products-section">
         <h2>Products</h2>
         <div className="products">
-          {PRODUCTS.map((product) => (
-            <div className="product-card" key={product.id}>
-              <p><strong>{product.name}</strong></p>
-              <p>${product.price}</p>
-              <div className="quantity-controls">
-                <button onClick={() => updateCart(product, -1)}>−</button>
-                <span>{getQuantity(product.id)}</span>
-                <button onClick={() => updateCart(product, 1)}>+</button>
+          {PRODUCTS.map((product) => {
+            const quantity = getQuantity(product.id);
+            return (
+              <div className="product-card" key={product.id}>
+                <p>
+                  <strong>{product.name}</strong>
+                </p>
+                <p>${product.price}</p>
+                {quantity === 0 ? (
+                  <button onClick={() => addToCart(product)}>Add to Cart</button>
+                ) : (
+                  <div className="quantity-controls">
+                    <button onClick={() => updateQuantity(product, -1)}>−</button>
+                    <span>{quantity}</span>
+                    <button onClick={() => updateQuantity(product, 1)}>+</button>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -78,12 +87,15 @@ function App() {
         <div className="summary-card">
           <div className="subtotal-row">
             <span>Subtotal:</span>
-            <span><strong>${subtotal}</strong></span>
+            <span>
+              <strong>${subtotal}</strong>
+            </span>
           </div>
           <hr />
           <div className="gift-promo">
             <p>
-              Add ${Math.max(0, THRESHOLD - subtotal)} more to get a FREE Wireless Mouse!
+              Add ${Math.max(0, THRESHOLD - subtotal)} more to get a FREE Wireless
+              Mouse!
             </p>
             <div className="progress-bar">
               <div className="progress" style={{ width: `${progress}%` }}></div>
